@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Account | WAYAY</title>
+<meta name="description" content="Sign in to your WAYAY account to track orders, manage addresses and view your wishlist.">
+<meta name="theme-color" content="#FAF7F2">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23221F1C'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='56' fill='%23C97B5A' text-anchor='middle'%3EW%3C/text%3E%3C/svg%3E">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/wayay/css/style.css">
+</head>
+<body data-base="">
+
+<a class="visually-hidden" href="#main">Skip to content</a>
+<header class="site-header" id="wayay-header"></header>
+<div id="wayay-overlays"></div>
+
+<main id="main">
+  <div class="container">
+
+    <!-- Guest view -->
+    <div id="guestView">
+      <div class="auth-wrap">
+        <div class="auth-tabs">
+          <button id="tabSignIn" class="is-active">Sign In</button>
+          <button id="tabRegister">Create Account</button>
+        </div>
+
+        <form id="signInForm">
+          <div class="field"><label for="siEmail">Email</label><input id="siEmail" type="email" required placeholder="you@example.com"></div>
+          <div class="field"><label for="siPass">Password</label><input id="siPass" type="password" required placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"></div>
+          <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          <p class="field-note text-center" style="margin-top:14px"><a href="#" style="text-decoration:underline">Forgot your password?</a></p>
+        </form>
+
+        <form id="registerForm" style="display:none">
+          <div class="field"><label for="reName">Full Name</label><input id="reName" type="text" required placeholder="Jane Parent"></div>
+          <div class="field"><label for="reEmail">Email</label><input id="reEmail" type="email" required placeholder="you@example.com"></div>
+          <div class="field"><label for="rePass">Password</label><input id="rePass" type="password" required placeholder="At least 8 characters"></div>
+          <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Signed-in dashboard -->
+    <div id="dashboardView" style="display:none">
+      <div class="collection-head">
+        <h1 class="h-lg">Hi, <span id="accountName">Friend</span></h1>
+        <p class="text-soft" style="margin-top:6px">Welcome back to your WAYAY account.</p>
+      </div>
+
+      <div class="account-grid">
+        <nav class="account-nav" aria-label="Account">
+          <a href="#" class="is-active" data-panel="orders">Orders</a>
+          <a href="wishlist.html">Wishlist</a>
+          <a href="#" data-panel="addresses">Addresses</a>
+          <a href="#" data-panel="details">Account Details</a>
+          <button id="logoutBtn">Log Out</button>
+        </nav>
+
+        <div>
+          <div id="panelOrders">
+            <div class="order-card">
+              <div class="order-card-top"><span>Order #WY10432</span><span class="order-status">Delivered</span></div>
+              <p class="text-soft" style="font-size:12.5px">Placed Aug 12, 2026 &middot; 2 items &middot; 41.500 KD</p>
+            </div>
+            <div class="order-card">
+              <div class="order-card-top"><span>Order #WY10287</span><span class="order-status" style="background:var(--color-accent-soft);color:var(--color-accent-ink)">In Transit</span></div>
+              <p class="text-soft" style="font-size:12.5px">Placed Aug 6, 2026 &middot; 1 item &middot; 22.500 KD</p>
+            </div>
+            <div class="order-card">
+              <div class="order-card-top"><span>Order #WY10119</span><span class="order-status">Delivered</span></div>
+              <p class="text-soft" style="font-size:12.5px">Placed Jul 24, 2026 &middot; 3 items &middot; 58.000 KD</p>
+            </div>
+          </div>
+          <div id="panelAddresses" style="display:none">
+            <div class="order-card">
+              <div class="order-card-top"><span>Home</span><span class="order-status">Default</span></div>
+              <p class="text-soft" style="font-size:12.5px">Block 4, Street 12, Salmiya, Kuwait</p>
+            </div>
+          </div>
+          <div id="panelDetails" style="display:none">
+            <div class="field"><label>Full Name</label><input type="text" id="detailsName" value="Jane Parent"></div>
+            <div class="field"><label>Email</label><input type="email" id="detailsEmail" value="jane@example.com"></div>
+            <button class="btn btn-outline btn-sm" id="saveDetailsBtn">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer" id="wayay-footer"></footer>
+
+<script src="assets/wayay/js/data.js"></script>
+<script src="assets/wayay/js/app.js"></script>
+<script>
+(function(){
+  var LS_AUTH = 'wayay_auth_v1';
+
+  function isLoggedIn(){ try { return !!localStorage.getItem(LS_AUTH); } catch(e){ return false; } }
+  function setLoggedIn(name){ try { localStorage.setItem(LS_AUTH, name || 'Friend'); } catch(e){} }
+  function clearLoggedIn(){ try { localStorage.removeItem(LS_AUTH); } catch(e){} }
+
+  function renderAuthState(){
+    var loggedIn = isLoggedIn();
+    document.getElementById('guestView').style.display = loggedIn ? 'none' : '';
+    document.getElementById('dashboardView').style.display = loggedIn ? '' : 'none';
+    if (loggedIn){
+      var name = localStorage.getItem(LS_AUTH) || 'Friend';
+      document.getElementById('accountName').textContent = name.split(' ')[0];
+    }
+  }
+
+  function bindTabs(){
+    var tabSignIn = document.getElementById('tabSignIn');
+    var tabRegister = document.getElementById('tabRegister');
+    var signInForm = document.getElementById('signInForm');
+    var registerForm = document.getElementById('registerForm');
+    tabSignIn.addEventListener('click', function(){
+      tabSignIn.classList.add('is-active'); tabRegister.classList.remove('is-active');
+      signInForm.style.display=''; registerForm.style.display='none';
+    });
+    tabRegister.addEventListener('click', function(){
+      tabRegister.classList.add('is-active'); tabSignIn.classList.remove('is-active');
+      registerForm.style.display=''; signInForm.style.display='none';
+    });
+  }
+
+  function bindForms(){
+    document.getElementById('signInForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      setLoggedIn('Friend');
+      WAYAY.showToast('Signed in successfully', 'check');
+      renderAuthState();
+    });
+    document.getElementById('registerForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      var name = document.getElementById('reName').value || 'Friend';
+      setLoggedIn(name);
+      WAYAY.showToast('Welcome to WAYAY, ' + name.split(' ')[0] + '!', 'check');
+      renderAuthState();
+    });
+    document.getElementById('logoutBtn').addEventListener('click', function(){
+      clearLoggedIn();
+      WAYAY.showToast('Signed out', 'check');
+      renderAuthState();
+    });
+    var saveBtn = document.getElementById('saveDetailsBtn');
+    if (saveBtn) saveBtn.addEventListener('click', function(){ WAYAY.showToast('Account details updated', 'check'); });
+  }
+
+  function bindPanels(){
+    document.querySelectorAll('.account-nav [data-panel]').forEach(function(link){
+      link.addEventListener('click', function(e){
+        e.preventDefault();
+        document.querySelectorAll('.account-nav [data-panel]').forEach(function(l){ l.classList.remove('is-active'); });
+        link.classList.add('is-active');
+        ['orders','addresses','details'].forEach(function(p){
+          document.getElementById('panel' + p.charAt(0).toUpperCase()+p.slice(1)).style.display = 'none';
+        });
+        var panel = link.getAttribute('data-panel');
+        document.getElementById('panel' + panel.charAt(0).toUpperCase()+panel.slice(1)).style.display = '';
+      });
+    });
+  }
+
+  WAYAY.loadPartials(function(){
+    renderAuthState();
+    bindTabs();
+    bindForms();
+    bindPanels();
+  });
+})();
+</script>
+</body>
+</html>
