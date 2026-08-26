@@ -1,0 +1,87 @@
+<!-- Mobile nav drawer -->
+<div class="drawer-scrim" id="navScrim"></div>
+<aside class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation">
+  <div class="drawer-head">
+    <a href="index.html" class="logo">WA<span>Y</span>AY</a>
+    <button class="btn-icon" id="drawerCloseBtn" aria-label="Close menu">
+      <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="drawer-nav" aria-label="Mobile primary">
+    <a href="collection.html?cat=new-in">New In</a>
+    <a href="collection.html?cat=girls">Girls</a>
+    <a href="collection.html?cat=boys">Boys</a>
+    <a href="collection.html?cat=baby">Baby</a>
+    <a href="collection.html?cat=all">Collections</a>
+    <a href="collection.html?cat=sale" class="is-sale">Sale</a>
+  </nav>
+  <div class="drawer-foot">
+    <a href="account.html">
+      <svg class="icon-sm" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      My Account
+    </a>
+    <a href="wishlist.html">
+      <svg class="icon-sm" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+      Wishlist
+    </a>
+  </div>
+</aside>
+
+<!-- Cart drawer -->
+<div class="drawer-scrim" id="cartScrim"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+  <div class="cart-head">
+    <h3>Your Bag (<span id="cartHeadCount">0</span>)</h3>
+    <button class="btn-icon" id="cartCloseBtn" aria-label="Close cart">
+      <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="free-ship-bar" id="freeShipBar">
+    <p id="freeShipMsg">Add 25.000 KD more for FREE shipping</p>
+    <div class="track"><div class="fill" id="freeShipFill" style="width:0%"></div></div>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-foot" id="cartFoot">
+    <div class="cart-subtotal-row"><span>Subtotal</span><span id="cartSubtotal">0.000 KD</span></div>
+    <p class="cart-ship-note">Shipping &amp; taxes calculated at checkout.</p>
+    <a href="#" class="btn btn-primary btn-block" id="checkoutBtn">Checkout</a>
+  </div>
+</aside>
+
+<!-- Search overlay -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-top">
+    <div class="container search-input-row">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Search rompers, dresses, sizes..." autocomplete="off">
+      <button class="btn-icon" id="searchCloseBtn" aria-label="Close search">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="container search-body">
+    <div id="searchIdleState">
+      <div class="search-block">
+        <h6>Recent Searches</h6>
+        <div class="chip-row" id="recentSearches"></div>
+      </div>
+      <div class="search-block">
+        <h6>Popular Searches</h6>
+        <div class="chip-row" id="popularSearches"></div>
+      </div>
+      <div class="search-block">
+        <h6>You Might Like</h6>
+        <div class="pg search-results-grid" id="searchSuggestGrid"></div>
+      </div>
+    </div>
+    <div id="searchResultsState" style="display:none">
+      <div class="search-block">
+        <h6 id="searchResultsHeading">Results</h6>
+        <div class="pg search-results-grid" id="searchResultsGrid"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toasts -->
+<div class="toast-stack" id="toastStack"></div>

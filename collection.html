@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Shop All | WAYAY</title>
+<meta name="description" content="Shop premium WAYAY kids clothing — filter by size, age, gender, color and price. New arrivals and best sellers for girls, boys, baby and newborn.">
+<meta name="theme-color" content="#FAF7F2">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23221F1C'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='56' fill='%23C97B5A' text-anchor='middle'%3EW%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/wayay/css/style.css">
+</head>
+<body data-base="">
+
+<a class="visually-hidden" href="#main">Skip to content</a>
+<header class="site-header" id="wayay-header"></header>
+<div id="wayay-overlays"></div>
+
+<main id="main">
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a><span>/</span><span id="crumbCurrent">Shop All</span>
+    </nav>
+
+    <div class="collection-head">
+      <h1 class="h-lg" id="collectionTitle">Shop All</h1>
+      <p class="text-soft" id="collectionSub" style="margin-top:8px;max-width:560px">Premium everyday clothing for every little adventure.</p>
+    </div>
+
+    <div class="collection-toolbar">
+      <div class="toolbar-left">
+        <button class="filters-mobile-trigger" id="filtersOpenBtn">
+          <svg class="icon-sm" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="9" cy="6" r="1.6" fill="currentColor"/><circle cx="15" cy="12" r="1.6" fill="currentColor"/><circle cx="9" cy="18" r="1.6" fill="currentColor"/></svg>
+          Filters
+        </button>
+        <span class="result-count" id="resultCount">0 items</span>
+      </div>
+      <div class="select-wrap">
+        <label class="visually-hidden" for="sortSelect">Sort by</label>
+        <select id="sortSelect">
+          <option value="featured">Sort: Featured</option>
+          <option value="newest">Newest</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="best-selling">Best Selling</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="collection-layout">
+      <aside class="filters-desktop" id="filtersDesktop" aria-label="Filters"></aside>
+
+      <section aria-live="polite">
+        <div class="pg" id="productGrid"></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<!-- Mobile filters sheet -->
+<div class="drawer-scrim" id="filtersScrim"></div>
+<div class="filters-sheet" id="filtersSheet" aria-label="Filters">
+  <div class="filters-sheet-head">
+    <h3 class="h-sm">Filters</h3>
+    <button class="btn-icon" id="filtersCloseBtn" aria-label="Close filters">
+      <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="filters-sheet-body" id="filtersMobile"></div>
+  <div class="filters-sheet-foot">
+    <button class="btn btn-outline btn-block" id="filtersClearBtn">Clear All</button>
+    <button class="btn btn-primary btn-block" id="filtersApplyBtn">Show Results</button>
+  </div>
+</div>
+
+<footer class="site-footer" id="wayay-footer"></footer>
+
+<script src="assets/wayay/js/data.js"></script>
+<script src="assets/wayay/js/app.js"></script>
+<script>
+(function(){
+  var CATEGORY_LABELS = { girls:'Girls', boys:'Boys', baby:'Baby', newborn:'Newborn', accessories:'Accessories' };
+  var GENDERS = ['girls','boys','unisex'];
+  var COLLECTIONS = [
+    { id:'new-in', label:'New In', test:function(p){ return p.isNew; } },
+    { id:'sale', label:'Sale', test:function(p){ return !!p.compareAtPrice; } },
+    { id:'best-sellers', label:'Best Sellers', test:function(p){ return p.bestSeller; } }
+  ];
+
+  function uniqueSizes(){
+    var set = {};
+    PRODUCTS.forEach(function(p){ p.sizes.forEach(function(s){ set[s]=true; }); });
+    return Object.keys(set);
+  }
+  function uniqueColors(){
+    var set = {};
+    PRODUCTS.forEach(function(p){ p.colors.forEach(function(c){ set[c]=true; }); });
+    return Object.keys(set);
+  }
+
+  var params = new URLSearchParams(location.search);
+  var state = {
+    category: params.get('cat') && params.get('cat')!=='all' && CATEGORY_LABELS[params.get('cat')] ? [params.get('cat')] : [],
+    collection: params.get('cat') && ['new-in','sale'].indexOf(params.get('cat'))>-1 ? [params.get('cat')] : [],
+    gender: [],
+    age: params.get('age') ? [params.get('age')] : [],
+    size: [],
+    color: [],
+    priceMin: null,
+    priceMax: null,
+    q: params.get('q') || '',
+    sort: params.get('sort') || 'featured'
+  };
+
+  function filterGroupHTML(title, id, options){
+    return (
+      '<details class="filter-group" open>' +
+        '<summary>' + title + '</summary>' +
+        '<div class="filter-body" data-group="' + id + '">' + options + '</div>' +
+      '</details>'
+    );
+  }
+  function checkRow(group, value, label){
+    var checked = state[group] && state[group].indexOf(value) > -1 ? ' checked' : '';
+    return '<label class="check-row"><input type="checkbox" data-filter="' + group + '" value="' + value + '"' + checked + '> ' + label + '</label>';
+  }
+  function colorSwatchRow(){
+    return '<div class="color-check-row">' + uniqueColors().map(function(c){
+      var col = COLORS[c];
+      var active = state.color.indexOf(c) > -1 ? ' is-active' : '';
+      return '<span class="color-check' + active + '" data-filter="color" data-color="' + c + '" style="background:' + col.hex + '" title="' + col.name + '"></span>';
+    }).join('') + '</div>';
+  }
+
+  function buildFiltersHTML(){
+    var html = '';
+    html += filterGroupHTML('Collection', 'collection', COLLECTIONS.map(function(c){ return checkRow('collection', c.id, c.label); }).join(''));
+    html += filterGroupHTML('Category', 'category', Object.keys(CATEGORY_LABELS).map(function(c){ return checkRow('category', c, CATEGORY_LABELS[c]); }).join(''));
+    html += filterGroupHTML('Gender', 'gender', GENDERS.map(function(g){ return checkRow('gender', g, g.charAt(0).toUpperCase()+g.slice(1)); }).join(''));
+    html += filterGroupHTML('Age', 'age', AGE_GROUPS.map(function(a){ return checkRow('age', a, a); }).join(''));
+    html += filterGroupHTML('Size', 'size', uniqueSizes().map(function(s){ return checkRow('size', s, s); }).join(''));
+    html += filterGroupHTML('Color', 'color', colorSwatchRow());
+    html += filterGroupHTML('Price (KD)', 'price',
+      '<div class="price-range">' +
+        '<input type="number" min="0" placeholder="Min" id="priceMinInput" value="' + (state.priceMin!==null?state.priceMin:'') + '">' +
+        '<span>&ndash;</span>' +
+        '<input type="number" min="0" placeholder="Max" id="priceMaxInput" value="' + (state.priceMax!==null?state.priceMax:'') + '">' +
+      '</div>'
+    );
+    return html;
+  }
+
+  function bindFilterInputs(root){
+    root.querySelectorAll('input[data-filter]').forEach(function(input){
+      input.addEventListener('change', function(){
+        var group = input.getAttribute('data-filter');
+        var val = input.value;
+        var arr = state[group];
+        var i = arr.indexOf(val);
+        if (input.checked && i===-1) arr.push(val);
+        if (!input.checked && i>-1) arr.splice(i,1);
+        syncFilterUIs();
+        applyAndRender();
+      });
+    });
+    root.querySelectorAll('.color-check').forEach(function(sw){
+      sw.addEventListener('click', function(){
+        var c = sw.getAttribute('data-color');
+        var i = state.color.indexOf(c);
+        if (i>-1) state.color.splice(i,1); else state.color.push(c);
+        syncFilterUIs();
+        applyAndRender();
+      });
+    });
+    var minInput = root.querySelector('#priceMinInput');
+    var maxInput = root.querySelector('#priceMaxInput');
+    if (minInput) minInput.addEventListener('input', function(){ state.priceMin = minInput.value ? parseFloat(minInput.value) : null; applyAndRender(); });
+    if (maxInput) maxInput.addEventListener('input', function(){ state.priceMax = maxInput.value ? parseFloat(maxInput.value) : null; applyAndRender(); });
+  }
+
+  function syncFilterUIs(){
+    document.querySelectorAll('[data-filter]').forEach(function(input){
+      if (input.type !== 'checkbox') return;
+      var group = input.getAttribute('data-filter');
+      input.checked = state[group] && state[group].indexOf(input.value) > -1;
+    });
+    document.querySelectorAll('.color-check').forEach(function(sw){
+      sw.classList.toggle('is-active', state.color.indexOf(sw.getAttribute('data-color')) > -1);
+    });
+  }
+
+  function renderFilterPanels(){
+    var desktop = document.getElementById('filtersDesktop');
+    var mobile = document.getElementById('filtersMobile');
+    var html = buildFiltersHTML();
+    desktop.innerHTML = html;
+    mobile.innerHTML = html;
+    bindFilterInputs(desktop);
+    bindFilterInputs(mobile);
+  }
+
+  function matchesFilters(p){
+    if (state.category.length && state.category.indexOf(p.category) === -1) return false;
+    if (state.gender.length && state.gender.indexOf(p.gender) === -1) return false;
+    if (state.age.length && !state.age.some(function(a){ return p.ageGroups.indexOf(a) > -1; })) return false;
+    if (state.size.length && !state.size.some(function(s){ return p.sizes.indexOf(s) > -1; })) return false;
+    if (state.color.length && !state.color.some(function(c){ return p.colors.indexOf(c) > -1; })) return false;
+    if (state.collection.length){
+      var passesCollection = state.collection.some(function(id){
+        var c = COLLECTIONS.filter(function(x){return x.id===id;})[0];
+        return c && c.test(p);
+      });
+      if (!passesCollection) return false;
+    }
+    if (state.priceMin !== null && p.price < state.priceMin) return false;
+    if (state.priceMax !== null && p.price > state.priceMax) return false;
+    if (state.q){
+      var q = state.q.toLowerCase();
+      if (p.name.toLowerCase().indexOf(q) === -1 && p.category.toLowerCase().indexOf(q) === -1) return false;
+    }
+    return true;
+  }
+
+  function sortProducts(list){
+    var arr = list.slice();
+    if (state.sort === 'newest') arr.sort(function(a,b){ return (b.isNew?1:0) - (a.isNew?1:0); });
+    else if (state.sort === 'price-asc') arr.sort(function(a,b){ return a.price - b.price; });
+    else if (state.sort === 'price-desc') arr.sort(function(a,b){ return b.price - a.price; });
+    else if (state.sort === 'best-selling') arr.sort(function(a,b){ return (b.bestSeller?1:0) - (a.bestSeller?1:0) || b.reviewsCount - a.reviewsCount; });
+    return arr;
+  }
+
+  function updateHeading(){
+    var cat = params.get('cat');
+    var title = 'Shop All';
+    var sub = 'Premium everyday clothing for every little adventure.';
+    if (state.q){ title = 'Search results'; sub = 'Showing results for "' + state.q + '"'; }
+    else if (cat === 'new-in'){ title = 'New In'; sub = 'The latest WAYAY styles, fresh off the rail.'; }
+    else if (cat === 'sale'){ title = 'Sale'; sub = 'Loved styles, now at a better price — while stocks last.'; }
+    else if (cat && CATEGORY_LABELS[cat]){ title = CATEGORY_LABELS[cat]; sub = 'Explore the full ' + CATEGORY_LABELS[cat] + ' edit.'; }
+    document.getElementById('collectionTitle').textContent = title;
+    document.getElementById('collectionSub').textContent = sub;
+    document.getElementById('crumbCurrent').textContent = title;
+    document.title = title + ' | WAYAY';
+  }
+
+  function applyAndRender(){
+    var filtered = PRODUCTS.filter(matchesFilters);
+    filtered = sortProducts(filtered);
+    document.getElementById('resultCount').textContent = filtered.length + ' item' + (filtered.length===1?'':'s');
+    WAYAY.renderProductGrid(document.getElementById('productGrid'), filtered, 'Try clearing a filter or browse New In for fresh picks.');
+  }
+
+  function openFiltersSheet(){
+    document.getElementById('filtersSheet').classList.add('is-open');
+    document.getElementById('filtersScrim').classList.add('is-open');
+    document.body.classList.add('no-scroll');
+  }
+  function closeFiltersSheet(){
+    document.getElementById('filtersSheet').classList.remove('is-open');
+    document.getElementById('filtersScrim').classList.remove('is-open');
+    document.body.classList.remove('no-scroll');
+  }
+
+  WAYAY.loadPartials(function(){
+    updateHeading();
+    WAYAY.renderGridSkeleton(document.getElementById('productGrid'), 8);
+    renderFilterPanels();
+
+    document.getElementById('sortSelect').value = state.sort;
+    document.getElementById('sortSelect').addEventListener('change', function(e){ state.sort = e.target.value; applyAndRender(); });
+
+    document.getElementById('filtersOpenBtn').addEventListener('click', openFiltersSheet);
+    document.getElementById('filtersCloseBtn').addEventListener('click', closeFiltersSheet);
+    document.getElementById('filtersScrim').addEventListener('click', closeFiltersSheet);
+    document.getElementById('filtersApplyBtn').addEventListener('click', closeFiltersSheet);
+    document.getElementById('filtersClearBtn').addEventListener('click', function(){
+      state.category=[]; state.collection=[]; state.gender=[]; state.age=[]; state.size=[]; state.color=[];
+      state.priceMin=null; state.priceMax=null;
+      renderFilterPanels();
+      applyAndRender();
+    });
+
+    setTimeout(applyAndRender, 220);
+  });
+})();
+</script>
+</body>
+</html>
