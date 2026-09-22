@@ -35,11 +35,12 @@
   @media (hover:hover){.strip:hover .strip__track{animation-play-state:paused}}
 
   .hero{position:relative;margin:12px var(--gutter) 0;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
-  .hero img{width:100%;height:auto;display:block}
-  .hero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.5) 100%)}
-  .hero__content{position:absolute;inset:auto 0 0 0;padding:22px;color:#fff;text-align:center}
-  .hero__eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:.9;margin-bottom:8px}
-  .hero__title{font-size:24px;font-weight:800;line-height:1.2;margin-bottom:16px;text-shadow:0 2px 12px rgba(0,0,0,.3)}
+  .hero img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 20%;display:block}
+  .hero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.55) 100%)}
+  .hero__content{position:absolute;inset:auto 0 0 0;padding:26px 22px;color:#fff;text-align:center;opacity:0;transform:translateY(10px);animation:heroIn .8s ease .15s forwards}
+  @keyframes heroIn{to{opacity:1;transform:translateY(0)}}
+  .hero__eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;opacity:.92;margin-bottom:8px;font-weight:700}
+  .hero__title{font-size:28px;font-weight:800;line-height:1.15;margin-bottom:18px;text-shadow:0 2px 12px rgba(0,0,0,.3);letter-spacing:.5px}
   .btn{display:inline-block;background:#fff;color:var(--ink);font-weight:800;font-size:15px;padding:13px 34px;border-radius:40px}
   .btn:active{transform:scale(.97)}
 
@@ -49,12 +50,12 @@
   .section__link{font-size:13px;font-weight:700;color:var(--ink-soft);display:flex;align-items:center;gap:4px}
   .section__link svg{width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none}
 
-  .cats{display:flex;gap:10px;overflow-x:auto;padding:4px var(--gutter) 16px;scrollbar-width:none}
+  .cats{display:flex;gap:12px;overflow-x:auto;padding:4px var(--gutter) 18px;scrollbar-width:none}
   .cats::-webkit-scrollbar{display:none}
-  .cat{flex:none;width:80px;text-align:center}
-  .cat__img{width:80px;height:80px;border-radius:50%;overflow:hidden;box-shadow:var(--shadow);border:2px solid #fff}
-  .cat__img img{object-position:top}
-  .cat__name{font-size:12px;font-weight:700;margin-top:8px}
+  .cat{flex:none;width:136px;text-align:center}
+  .cat__img{width:136px;height:172px;border-radius:var(--radius-sm);overflow:hidden;box-shadow:var(--shadow)}
+  .cat__img img{object-position:top center}
+  .cat__name{font-size:12.5px;font-weight:800;margin-top:10px;letter-spacing:.2px}
 
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .card{background:var(--surface);border-radius:var(--radius-sm);overflow:hidden;box-shadow:var(--shadow)}
@@ -64,20 +65,13 @@
   .card__fav svg{width:16px;height:16px;stroke:var(--ink);stroke-width:2;fill:none}
   .card__body{padding:10px 11px 12px}
   .card__title{font-size:13px;font-weight:700;line-height:1.35;height:2.7em;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-  .card__row{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+  .card__row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px 6px;margin-top:8px}
   .card__price{font-size:14px;font-weight:800}
   .card__price small{font-size:11px;font-weight:600;color:var(--ink-soft)}
 
   .hscroll{display:flex;gap:12px;overflow-x:auto;padding:2px var(--gutter) 8px;scrollbar-width:none;scroll-snap-type:x mandatory}
   .hscroll::-webkit-scrollbar{display:none}
   .hscroll .card{flex:none;width:60%;scroll-snap-align:start}
-
-  .mosaic{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:4px var(--gutter) 8px}
-  .tile{position:relative;border-radius:var(--radius-sm);overflow:hidden;box-shadow:var(--shadow)}
-  .tile--tall{grid-row:span 2;aspect-ratio:1/2.05}
-  .tile--sq{aspect-ratio:1/1}
-  .tile__ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,.5) 100%)}
-  .tile__label{position:absolute;bottom:12px;right:12px;left:12px;color:#fff;font-size:15px;font-weight:800}
 
   .exp-wrap{display:flex;gap:8px;height:440px;padding:4px var(--gutter) 12px}
   .exp-box{position:relative;flex:1;overflow:hidden;border-radius:14px;box-shadow:var(--shadow);background:#f2f0ee}
@@ -209,7 +203,7 @@
   .citem__img{width:72px;height:96px;border-radius:10px;overflow:hidden;flex:none;background:#e8e8e8}
   .citem__info{flex:1;display:flex;flex-direction:column;min-width:0}
   .citem__name{font-size:13px;font-weight:700;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;padding-left:22px}
-  .citem__price{font-size:14px;font-weight:800;margin-top:auto}
+  .citem__price{font-size:14px;font-weight:800;margin-top:auto;direction:ltr;unicode-bidi:isolate}
   .citem__price small{font-size:11px;font-weight:600;color:var(--ink-soft)}
   .citem__rm{position:absolute;top:8px;left:8px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center}
   .citem__rm:active{background:var(--bg)}
@@ -289,7 +283,7 @@
   .sres__img{width:56px;height:70px;border-radius:8px;overflow:hidden;flex:none;background:var(--bg)}
   .sres__img img{width:100%;height:100%;object-fit:cover}
   .sres__name{font-size:13px;font-weight:700;line-height:1.3}
-  .sres__price{font-size:12px;color:var(--ink-soft);margin-top:3px}
+  .sres__price{font-size:12px;color:var(--ink-soft);margin-top:3px;direction:ltr;unicode-bidi:isolate}
   .search__empty{text-align:center;color:var(--ink-soft);font-size:13px;padding:40px 20px}
   .track__body{padding:16px}
   .track__hint{font-size:13px;color:var(--ink-soft);margin-bottom:12px}
@@ -357,7 +351,9 @@
   .disc-badge{position:absolute;top:10px;inset-inline-start:10px;background:var(--sale);color:#fff;font-size:11px;font-weight:800;padding:4px 9px;border-radius:20px;z-index:2}
   .pdp__price .price-old{font-size:16px}
   .pdp__discrow{display:inline-flex;align-items:center;gap:10px;margin-top:4px}
-  .pdp__save{background:#fdecec;color:var(--sale);font-size:12px;font-weight:800;padding:3px 10px;border-radius:20px}
+  .pdp__save{background:#fdecec;color:var(--sale);font-size:12px;font-weight:800;padding:3px 10px;border-radius:20px;letter-spacing:.2px}
+  .price-off{align-self:center;font-size:9.5px;font-weight:800;letter-spacing:.3px;color:var(--sale);background:#fdecec;padding:3px 7px;border-radius:20px;white-space:nowrap}
+  .card__price,.price-off,.disc-badge,.pdp__save,.pdp__discrow{direction:ltr;unicode-bidi:isolate}
 
   /* ===== FAQ Accordion ===== */
   .faq2{max-width:720px;margin:0 auto;padding:4px var(--gutter) 10px}
@@ -438,7 +434,7 @@
   .look__img{width:120px;height:150px;border-radius:12px;overflow:hidden;background:var(--bg)}
   .look__img img{width:100%;height:100%;object-fit:cover}
   .look__name{font-size:11.5px;font-weight:700;margin-top:6px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .look__price{font-size:11.5px;color:var(--sale);font-weight:800;margin-top:2px}
+  .look__price{font-size:11.5px;color:var(--sale);font-weight:800;margin-top:2px;direction:ltr;unicode-bidi:isolate}
   .look__img{position:relative}
   .look__add{position:absolute;bottom:8px;inset-inline-end:8px;width:32px;height:32px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;box-shadow:0 3px 10px rgba(26,26,26,.28);border:none;cursor:pointer;transition:transform .15s}
   .look__add:active{transform:scale(.88)}
@@ -452,7 +448,7 @@
   .qsize__img{width:56px;height:70px;border-radius:10px;overflow:hidden;background:var(--bg);flex:none}
   .qsize__img img{width:100%;height:100%;object-fit:cover}
   .qsize__name{font-size:13.5px;font-weight:800;line-height:1.3}
-  .qsize__price{font-size:13px;color:var(--sale);font-weight:800;margin-top:3px}
+  .qsize__price{font-size:13px;color:var(--sale);font-weight:800;margin-top:3px;direction:ltr;unicode-bidi:isolate}
   .qsize__label{font-size:12.5px;font-weight:800;margin-bottom:10px}
   .qsize__sizes{display:flex;gap:8px;flex-wrap:wrap}
 
@@ -507,7 +503,7 @@
     <div class="splash__bar"><span></span></div>
   </div>
 
-  <div class="strip"><div class="strip__track"><span class="strip__seg">شحن مجاني لكل أنحاء الكويت</span><span class="strip__seg">توصيل سريع</span><span class="strip__seg">استبدال وإرجاع خلال ١٤ يوم</span><span class="strip__seg">شحن مجاني لكل أنحاء الكويت</span><span class="strip__seg">توصيل سريع</span><span class="strip__seg">استبدال وإرجاع خلال ١٤ يوم</span><span class="strip__seg">شحن مجاني لكل أنحاء الكويت</span><span class="strip__seg">توصيل سريع</span><span class="strip__seg">استبدال وإرجاع خلال ١٤ يوم</span><span class="strip__seg">شحن مجاني لكل أنحاء الكويت</span><span class="strip__seg">توصيل سريع</span><span class="strip__seg">استبدال وإرجاع خلال ١٤ يوم</span></div></div>
+  <div class="strip"><div class="strip__track"><span class="strip__seg">SALE · 20% OFF STOREWIDE</span><span class="strip__seg">شحن مجاني لكل أنحاء الكويت</span><span class="strip__seg">استبدال وإرجاع خلال ١٤ يوم</span><span class="strip__seg">SALE · 20% OFF STOREWIDE</span><span class="strip__seg">شحن مجاني لكل أنحاء الكويت</span><span class="strip__seg">استبدال وإرجاع خلال ١٤ يوم</span><span class="strip__seg">SALE · 20% OFF STOREWIDE</span><span class="strip__seg">شحن مجاني لكل أنحاء الكويت</span><span class="strip__seg">استبدال وإرجاع خلال ١٤ يوم</span><span class="strip__seg">SALE · 20% OFF STOREWIDE</span><span class="strip__seg">شحن مجاني لكل أنحاء الكويت</span><span class="strip__seg">استبدال وإرجاع خلال ١٤ يوم</span></div></div>
 
   <header class="topbar">
     <button class="icon-btn" data-open-menu aria-label="القائمة"><svg class="icon" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
@@ -515,47 +511,36 @@
     <button class="icon-btn cart-btn" data-open-cart aria-label="السلة"><svg class="icon" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-count" data-cart-count hidden>0</span></button>
   </header>
 
-  <!-- HERO: full banner (both models) -->
+  <!-- HERO: static campaign photography -->
   <section class="hero">
-    <video autoplay muted loop playsinline preload="auto" webkit-playsinline="true" style="width:100%;height:auto;display:block" src="assets/videos/vid_01.mp4"></video>
+    <img src="assets/images/img_08.jpg" alt="Dershow Sale Campaign">
     <div class="hero__overlay"></div>
     <div class="hero__content">
-      <div class="hero__eyebrow">مجموعة جديدة</div>
-      <a class="btn" href="#">تسوقي الآن</a>
+      <div class="hero__eyebrow">DERSHOW SALE</div>
+      <h1 class="hero__title">UP TO 20% OFF</h1>
+      <a class="btn" href="#">SHOP SALE</a>
     </div>
   </section>
 
-  <div class="section"><div class="section__head"><h2 class="section__title">وصل حديثاً</h2><a class="section__link" href="#">عرض الكل <svg viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></svg></a></div></div>
+  <div class="section"><div class="section__head"><h2 class="section__title">SALE EDIT</h2><a class="section__link" href="#" data-open-sale>SHOP ALL SALE <svg viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></svg></a></div></div>
   <div class="hscroll">
-    <a class="card" href="#"><div class="card__media"><span class="card__badge card__badge--new">جديد</span><img src="assets/images/img_02.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">طقم بوبلين برشوت (جاكيت بحزام + بنطلون)</div><div class="card__row"><span class="card__price">44.900 <small>د.ك</small></span></div></div></a>
-    <a class="card" href="#"><div class="card__media"><img src="assets/images/img_03.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">طقم برشوت عنابي (جاكيت + بنطلون)</div><div class="card__row"><span class="card__price">44.900 <small>د.ك</small></span></div></div></a>
-    <a class="card" href="#"><div class="card__media"><span class="card__badge card__badge--new">جديد</span><img src="assets/images/img_04.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">طقم نسائي أوفرسايز (جاكيت + بنطلون)</div><div class="card__row"><span class="card__price">39.900 <small>د.ك</small></span></div></div></a>
-    <a class="card" href="#"><div class="card__media"><img src="assets/images/img_05.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">طقم برشوت (جاكيت طويل + بنطلون)</div><div class="card__row"><span class="card__price">44.900 <small>د.ك</small></span></div></div></a>
+    <a class="card" href="#"><div class="card__media"><span class="disc-badge">-20%</span><img src="assets/images/img_02.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">بنطلون بليتس رسمي</div><div class="card__row"><span class="card__price"><span class="price-now">19.920 <small>د.ك</small></span><span class="price-old">24.900</span></span><span class="price-off">20% OFF</span></div></div></a>
+    <a class="card" href="#"><div class="card__media"><span class="disc-badge">-20%</span><img src="assets/images/img_04.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">جاكيت خفيف بحزام</div><div class="card__row"><span class="card__price"><span class="price-now">26.320 <small>د.ك</small></span><span class="price-old">32.900</span></span><span class="price-off">20% OFF</span></div></div></a>
+    <a class="card" href="#"><div class="card__media"><span class="disc-badge">-20%</span><img src="assets/images/img_07.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">بنطلون جبردين قطن بكفّة</div><div class="card__row"><span class="card__price"><span class="price-now">18.320 <small>د.ك</small></span><span class="price-old">22.900</span></span><span class="price-off">20% OFF</span></div></div></a>
+    <a class="card" href="#"><div class="card__media"><span class="disc-badge">-20%</span><img src="assets/images/img_05.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">قميص كتّان واسع</div><div class="card__row"><span class="card__price"><span class="price-now">15.920 <small>د.ك</small></span><span class="price-old">19.900</span></span><span class="price-off">20% OFF</span></div></div></a>
+    <a class="card" href="#"><div class="card__media"><span class="disc-badge">-20%</span><img src="assets/images/img_06.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">بلوزة ساتان بأزرار</div><div class="card__row"><span class="card__price"><span class="price-now">13.520 <small>د.ك</small></span><span class="price-old">16.900</span></span><span class="price-off">20% OFF</span></div></div></a>
   </div>
 
-  <div class="section"><div class="section__head"><h2 class="section__title">الأكثر مبيعاً</h2><a class="section__link" href="#">عرض الكل <svg viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></svg></a></div>
+  <div class="section"><div class="section__head"><h2 class="section__title">NEW ARRIVALS</h2><a class="section__link" href="#">عرض الكل <svg viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></svg></a></div>
     <div class="grid">
-      <a class="card" href="#"><div class="card__media"><span class="card__badge">الأكثر مبيعاً</span><img src="assets/images/img_05.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">قميص كتّان واسع</div><div class="card__row"><span class="card__price">19.900 <small>د.ك</small></span></div></div></a>
-      <a class="card" href="#"><div class="card__media"><img src="assets/images/img_06.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">بلوزة ساتان بأزرار</div><div class="card__row"><span class="card__price">16.900 <small>د.ك</small></span></div></div></a>
-      <a class="card" href="#"><div class="card__media"><span class="card__badge">الأكثر مبيعاً</span><img src="assets/images/img_04.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">جاكيت خفيف بحزام</div><div class="card__row"><span class="card__price">32.900 <small>د.ك</small></span></div></div></a>
-      <a class="card" href="#"><div class="card__media"><img src="assets/images/img_02.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">بنطلون بليتس رسمي</div><div class="card__row"><span class="card__price">24.900 <small>د.ك</small></span></div></div></a>
-      <a class="card" href="#"><div class="card__media"><span class="card__badge">الأكثر مبيعاً</span><img src="assets/images/img_07.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">بنطلون جبردين قطن بكفّة</div><div class="card__row"><span class="card__price">22.900 <small>د.ك</small></span></div></div></a>
-      <a class="card" href="#"><div class="card__media"><img src="assets/images/img_06.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">بنطلون جبردين قطن</div><div class="card__row"><span class="card__price">22.900 <small>د.ك</small></span></div></div></a>
-      <a class="card" href="#"><div class="card__media"><span class="card__badge">الأكثر مبيعاً</span><img src="assets/images/img_03.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">طقم برشوت قطن أوفرسايز</div><div class="card__row"><span class="card__price">39.900 <small>د.ك</small></span></div></div></a>
-      <a class="card" href="#"><div class="card__media"><img src="assets/images/img_05.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">طقم برشوت (جاكيت طويل)</div><div class="card__row"><span class="card__price">44.900 <small>د.ك</small></span></div></div></a>
+      <a class="card" href="#"><div class="card__media"><span class="card__badge card__badge--new">جديد</span><span class="disc-badge" style="top:36px">-20%</span><img src="assets/images/img_02.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">طقم بوبلين برشوت (جاكيت بحزام + بنطلون)</div><div class="card__row"><span class="card__price"><span class="price-now">35.920 <small>د.ك</small></span><span class="price-old">44.900</span></span><span class="price-off">20% OFF</span></div></div></a>
+      <a class="card" href="#"><div class="card__media"><span class="disc-badge">-20%</span><img src="assets/images/img_03.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">طقم برشوت عنابي (جاكيت + بنطلون)</div><div class="card__row"><span class="card__price"><span class="price-now">35.920 <small>د.ك</small></span><span class="price-old">44.900</span></span><span class="price-off">20% OFF</span></div></div></a>
+      <a class="card" href="#"><div class="card__media"><span class="card__badge card__badge--new">جديد</span><span class="disc-badge" style="top:36px">-20%</span><img src="assets/images/img_04.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">طقم نسائي أوفرسايز (جاكيت + بنطلون)</div><div class="card__row"><span class="card__price"><span class="price-now">31.920 <small>د.ك</small></span><span class="price-old">39.900</span></span><span class="price-off">20% OFF</span></div></div></a>
+      <a class="card" href="#"><div class="card__media"><span class="disc-badge">-20%</span><img src="assets/images/img_05.jpg"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">طقم برشوت (جاكيت طويل + بنطلون)</div><div class="card__row"><span class="card__price"><span class="price-now">35.920 <small>د.ك</small></span><span class="price-old">44.900</span></span><span class="price-off">20% OFF</span></div></div></a>
     </div>
   </div>
 
-  <div class="section"><div class="section__head"><h2 class="section__title">تصفّحي المجموعات</h2></div></div>
-  <div class="mosaic">
-    <a class="tile tile--tall" href="#"><img src="assets/images/img_08.jpg"><div class="tile__ov"></div></a>
-    <a class="tile tile--sq" href="#"><img src="assets/images/img_06.jpg"><div class="tile__ov"></div></a>
-    <a class="tile tile--sq" href="#"><img src="assets/images/img_09.jpg"><div class="tile__ov"></div></a>
-    <a class="tile tile--sq" href="#"><img src="assets/images/img_10.jpg"><div class="tile__ov"></div></a>
-    <a class="tile tile--sq" href="#"><img src="assets/images/img_11.jpg"><div class="tile__ov"></div></a>
-  </div>
-
-  <div class="section"><div class="section__head"><h2 class="section__title">تسوّقي حسب الفئة</h2></div></div>
+  <div class="section"><div class="section__head"><h2 class="section__title">SHOP BY CATEGORY</h2></div></div>
   <div class="cats">
     <a class="cat" href="#"><div class="cat__img"><img src="assets/images/img_12.jpg"></div><div class="cat__name">قمصان</div></a>
     <a class="cat" href="#"><div class="cat__img"><img src="assets/images/img_11.jpg"></div><div class="cat__name">جاكيتات</div></a>
@@ -565,10 +550,17 @@
   </div>
 
   
+  <div class="section"><div class="section__head"><h2 class="section__title">THE DERSHOW EDIT</h2></div></div>
   <div class="exp-wrap" id="expWrap">
-    <div class="exp-box"><video autoplay muted loop playsinline preload="auto" webkit-playsinline="true" src="assets/videos/vid_02.mp4"></video></div>
-    <div class="exp-box"><video autoplay muted loop playsinline preload="auto" webkit-playsinline="true" src="assets/videos/vid_03.mp4"></video></div>
-    <div class="exp-box"><video autoplay muted loop playsinline preload="auto" webkit-playsinline="true" src="assets/videos/vid_04.mp4"></video></div>
+    <div class="exp-box"><video autoplay muted loop playsinline preload="auto" webkit-playsinline="true" src="assets/videos/vid_02.mp4"></video><div class="exp-v">TAILORED SETS</div></div>
+    <div class="exp-box"><video autoplay muted loop playsinline preload="auto" webkit-playsinline="true" src="assets/videos/vid_03.mp4"></video><div class="exp-v">LAYERED LOOKS</div></div>
+    <div class="exp-box"><video autoplay muted loop playsinline preload="auto" webkit-playsinline="true" src="assets/videos/vid_04.mp4"></video><div class="exp-v">EVENING EDIT</div></div>
+  </div>
+
+  <div class="band">
+    <div class="band__t">YOUR NEXT LOOK, 20% OFF</div>
+    <div class="band__s">Shop the entire Dershow collection at 20% off — for a limited time.</div>
+    <a class="btn" href="#" data-open-sale>SHOP NOW</a>
   </div>
 
   <div class="section"><div class="section__head"><h2 class="section__title">الأسئلة الشائعة</h2></div></div>
@@ -592,6 +584,7 @@
     <div class="trust__item"><div class="trust__ic"><svg viewBox="0 0 24 24"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7M5.5 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM18.5 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg></div><div><div class="trust__t">شحن مجاني</div><div class="trust__s">لكل أنحاء الكويت</div></div></div>
     <div class="trust__item"><div class="trust__ic"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9M3 12l3-3M3 12l3 3"/><path d="M12 8v4l3 2"/></svg></div><div><div class="trust__t">إرجاع واستبدال</div><div class="trust__s">خلال ١٤ يوم</div></div></div>
     <div class="trust__item"><div class="trust__ic"><svg viewBox="0 0 24 24"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/><path d="m9 12 2 2 4-4"/></svg></div><div><div class="trust__t">دفع آمن</div><div class="trust__s">حماية كاملة للبيانات</div></div></div>
+    <div class="trust__item"><div class="trust__ic"><svg viewBox="0 0 24 24"><path d="M20.5 17.5A8.5 8.5 0 1 0 4 13v3a2 2 0 0 0 2 2h1v-6H5v-1a7 7 0 1 1 14 0v1h-2v6h1a2 2 0 0 0 2-2z"/></svg></div><div><div class="trust__t">دعم العملاء</div><div class="trust__s">متواجدون طوال الأسبوع</div></div></div>
   </div>
 
   <footer class="footer">
@@ -600,7 +593,7 @@
     <div class="footer__cols">
       <div class="footer__col">
         <button class="footer__h" data-facc>خدمة العملاء<svg class="footer__chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
-        <div class="footer__links"><a href="#" data-page="faq">الأسئلة الشائعة</a><a href="#" data-page="shipping">الشحن والتوصيل</a><a href="#" data-page="returns">سياسة الاستبدال والاسترجاع</a><a href="#" data-page="contact">تواصل معنا</a></div>
+        <div class="footer__links"><a href="#" data-page="sale" style="color:var(--sale);font-weight:800">SALE</a><a href="#" data-page="faq">الأسئلة الشائعة</a><a href="#" data-page="shipping">الشحن والتوصيل</a><a href="#" data-page="returns">سياسة الاستبدال والاسترجاع</a><a href="#" data-page="contact">تواصل معنا</a></div>
       </div>
       <div class="footer__col">
         
@@ -635,9 +628,9 @@
       <button class="nav-link" data-open-fav><span class="nav-link__l"><svg class="nav-ic" viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg>المفضلة <span class="nav-badge" data-fav-count hidden>0</span></span><svg class="chev" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></svg></button>
 
       <div class="nav-sec">التنقّل</div>
+      <a class="nav-link" href="#" data-open-sale style="color:var(--sale);font-weight:800"><span class="nav-link__l"><svg class="nav-ic" viewBox="0 0 24 24" style="stroke:var(--sale)"><path d="M9 5H2v7l9.29 9.29a2 2 0 0 0 2.83 0l4.17-4.17a2 2 0 0 0 0-2.83L9 5z"/><path d="M6 8h.01"/></svg>SALE <span class="nav-badge">20%</span></span><svg class="chev" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></svg></a>
       <a class="nav-link" href="#"><span class="nav-link__l"><svg class="nav-ic" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>وصل حديثاً</span><svg class="chev" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></svg></a>
       <a class="nav-link" href="#"><span class="nav-link__l"><svg class="nav-ic" viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>الأكثر مبيعاً</span><svg class="chev" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></svg></a>
-      <a class="nav-link" href="#" style="color:var(--sale)"><span class="nav-link__l"><svg class="nav-ic" viewBox="0 0 24 24" style="stroke:var(--sale)"><path d="M9 5H2v7l9.29 9.29a2 2 0 0 0 2.83 0l4.17-4.17a2 2 0 0 0 0-2.83L9 5z"/><path d="M6 8h.01"/></svg>العروض</span><svg class="chev" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></svg></a>
 
       <div class="nav-sec">تسوّقي حسب الفئة</div>
       <div data-nav-cats></div>
@@ -994,32 +987,33 @@
 
       /* ---------- أدوات مساعدة ---------- */
       function fmt(n){ return n.toFixed(3); }
-      // نظام الخصم: نسبة خصم لكل منتج حسب اسمه (ثابتة للعرض)
-      var DISCOUNTS = {}; // name -> percent
-      var DEFAULT_DISC = 25; // خصم افتراضي 25% في صفحة العروض
-      function discPercent(name){ return DISCOUNTS.hasOwnProperty(name) ? DISCOUNTS[name] : DEFAULT_DISC; }
-      function oldPrice(now, pct){
-        if(pct<=0) return now;
-        var raw = now / (1 - pct/100);
-        // نقرّب لأقرب رقم ينتهي بـ .900 (شكل سعر طبيعي)
-        var whole = Math.floor(raw);
-        var rounded = whole + 0.900;
-        if(rounded <= now) rounded = whole + 1 + 0.900;
-        return rounded;
-      }
-      function priceHTML(item, showDisc){
-        var pct = showDisc ? discPercent(item.name) : 0;
-        if(pct>0){
-          var old = oldPrice(item.price, pct);
-          return '<span class="price-now">'+fmt(item.price)+' <small>'+CUR+'</small></span>'+
-                 '<span class="price-old">'+fmt(old)+'</span>';
-        }
-        return fmt(item.price)+' <small>'+CUR+'</small>';
-      }
+      // خصم 20% حقيقي وشامل على كل منتجات المتجر (وليس عرضاً بصرياً فقط)
+      var SALE_PCT = 20;
       function parsePrice(txt){
         var m = (txt||'').replace(/[^\d.,]/g,'').replace(',', '.');
         var v = parseFloat(m);
         return isNaN(v) ? 0 : v;
+      }
+      // تقرأ عنصر بطاقة وتُرجع {name, price(بعد الخصم), priceOriginal, img}
+      // المصدر: السعر المكتوب في .price-now هو السعر الفعلي بعد الخصم، و.price-old هو السعر الأصلي
+      function readCardItem(card){
+        var nameEl  = card.querySelector('.card__title');
+        var nowEl   = card.querySelector('.price-now') || card.querySelector('.card__price');
+        var oldEl   = card.querySelector('.price-old');
+        var imgEl   = card.querySelector('.card__media img');
+        return {
+          name: nameEl ? nameEl.textContent.trim() : 'منتج',
+          price: nowEl ? parsePrice(nowEl.textContent) : 0,
+          priceOriginal: oldEl ? parsePrice(oldEl.textContent) : null,
+          img: imgEl ? imgEl.getAttribute('src') : ''
+        };
+      }
+      function priceHTML(item){
+        if(item.priceOriginal && item.priceOriginal > item.price){
+          return '<span class="price-now">'+fmt(item.price)+' <small>'+CUR+'</small></span>'+
+                 '<span class="price-old">'+fmt(item.priceOriginal)+'</span>';
+        }
+        return fmt(item.price)+' <small>'+CUR+'</small>';
       }
       var toastTimer;
       function toast(msg){
@@ -1213,7 +1207,7 @@
         if(name.indexOf('قميص')>-1) return 'قميص من قماش البوبلين القطني الناعم، بقصّة مريحة وأزرار أنيقة. يصلح للعمل والخروج، وسهل التنسيق مع البناطيل أو تحت الجاكيت.';
         return 'قطعة مصمّمة بعناية من خامات عالية الجودة تمنحك إطلالة أنيقة ومريحة في آنٍ واحد. القصّة مدروسة لتناسب مختلف المناسبات، بتشطيب راقٍ يدوم طويلاً.';
       }
-      function openPDP(item, isOffers){
+      function openPDP(item){
         current = item;
         // معرض الصور: صورة المنتج + صورتين إضافيتين (زوايا) من مجموعة الصور
         var gal=[item.img];
@@ -1232,10 +1226,8 @@
           pdpDots.querySelectorAll('span').forEach(function(s,i){ s.classList.toggle('on', i===idx); });
         };
         pdpName.textContent = item.name;
-        var pct = isOffers ? discPercent(item.name) : 0;
-        if(pct>0){
-          var old = oldPrice(item.price, pct);
-          pdpPrice.innerHTML = '<span class="pdp__discrow"><span class="price-now">'+fmt(item.price)+' <small>'+CUR+'</small></span><span class="price-old">'+fmt(old)+' '+CUR+'</span><span class="pdp__save">وفّري '+pct+'%</span></span>';
+        if(item.priceOriginal && item.priceOriginal > item.price){
+          pdpPrice.innerHTML = '<span class="pdp__discrow"><span class="price-now">'+fmt(item.price)+' <small>'+CUR+'</small></span><span class="price-old">'+fmt(item.priceOriginal)+' '+CUR+'</span><span class="pdp__save">20% OFF</span></span>';
         } else {
           pdpPrice.innerHTML = fmt(item.price)+' <small>'+CUR+'</small>';
         }
@@ -1323,14 +1315,7 @@
 
       /* ---------- ربط النقر على كل بطاقة بفتح صفحة المنتج ---------- */
       document.querySelectorAll('.grid .card, .hscroll .card').forEach(function(card){
-        var nameEl  = card.querySelector('.card__title');
-        var priceEl = card.querySelector('.card__price');
-        var imgEl   = card.querySelector('.card__media img');
-        var item = {
-          name:  nameEl ? nameEl.textContent.trim() : 'منتج',
-          price: priceEl ? parsePrice(priceEl.textContent) : 0,
-          img:   imgEl ? imgEl.getAttribute('src') : ''
-        };
+        var item = readCardItem(card);
         card.addEventListener('click', function(e){
           // زر القلب على البطاقة يضيف/يحذف من المفضلة
           if(e.target.closest('.card__fav')){
@@ -1403,11 +1388,9 @@
       (function collectProducts(){
         var seen={};
         document.querySelectorAll('.grid .card, .hscroll .card').forEach(function(card){
-          var nm=(card.querySelector('.card__title')||{}).textContent.trim();
-          if(!nm||seen[nm])return; seen[nm]=1;
-          var pr=(card.querySelector('.card__price')||{}).textContent||'';
-          var img=card.querySelector('.card__media img');
-          ALL.push({name:nm, price:parsePrice(pr), img:img?img.getAttribute('src'):''});
+          var it=readCardItem(card);
+          if(!it.name||seen[it.name])return; seen[it.name]=1;
+          ALL.push(it);
         });
       })();
       function renderSearch(q){
@@ -1541,18 +1524,18 @@
 
       /* ---------- صفحة القائمة (فئات/عرض الكل) ---------- */
       var listing=document.querySelector('[data-listing]');
-      function openListing(title, items, isOffers){
+      function openListing(title, items){
         var g=listing.querySelector('[data-listing-grid]');
         listing.querySelector('[data-listing-title]').textContent=title;
         g.innerHTML='';
         (items&&items.length?items:ALL).forEach(function(p){
           var a=document.createElement('a'); a.className='card'; a.href='#';
-          var pct = isOffers ? discPercent(p.name) : 0;
-          var discBadge = pct>0 ? '<span class="disc-badge">-'+pct+'%</span>' : '';
-          a.innerHTML='<div class="card__media">'+discBadge+'<img src="'+p.img+'"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">'+p.name+'</div><div class="card__row"><span class="card__price">'+priceHTML(p, isOffers)+'</span></div></div>';
+          var discBadge = p.priceOriginal ? '<span class="disc-badge">-'+SALE_PCT+'%</span>' : '';
+          var offTag = p.priceOriginal ? '<span class="price-off">20% OFF</span>' : '';
+          a.innerHTML='<div class="card__media">'+discBadge+'<img src="'+p.img+'"><button class="card__fav"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/></svg></button></div><div class="card__body"><div class="card__title">'+p.name+'</div><div class="card__row"><span class="card__price">'+priceHTML(p)+'</span>'+offTag+'</div></div>';
           a.addEventListener('click', function(e){
             if(e.target.closest('.card__fav')){ e.preventDefault(); e.stopPropagation(); var on=toggleFav(p); a.querySelector('.card__fav').classList.toggle('on',on); toast(on?'أُضيفت إلى المفضلة \u2665':'أُزيلت من المفضلة'); return; }
-            e.preventDefault(); openPDP(p, isOffers);
+            e.preventDefault(); closeListing(); openPDP(p);
           });
           if(isFav(p.name)) a.querySelector('.card__fav').classList.add('on');
           g.appendChild(a);
@@ -1597,9 +1580,6 @@
         var nm=(cat.querySelector('.cat__name')||{}).textContent||'الفئة';
         wireCat(cat, nm.trim());
       });
-      // بلاطات المجموعات (mosaic) - الأسماء اتشالت، نربطها بالترتيب
-      var tileNames=['قمصان','بناطيل','أطقم نسائية','ترنش كوت','جاكيتات'];
-      document.querySelectorAll('.mosaic .tile').forEach(function(t,idx){ wireCat(t, tileNames[idx]||'المنتجات'); });
       // روابط nav-cats في القائمة الجانبية تُبنى ديناميكياً - نربطها بعد البناء
       setTimeout(function(){
         document.querySelectorAll('[data-nav-cats] .nav-link').forEach(function(a){
@@ -1608,23 +1588,28 @@
       }, 50);
       // "عرض الكل" و روابط الأقسام
       document.querySelectorAll('.section__link').forEach(function(a){
+        if(a.hasAttribute('data-open-sale')) return;
         // نلاقي عنوان القسم اللي فوقه
         var sec=a.closest('.section'); var t=sec?(sec.querySelector('.section__title')||{}).textContent:'المنتجات';
         a.addEventListener('click', function(e){ e.preventDefault(); openListing((t||'المنتجات').trim(), ALL); });
       });
-      // روابط القائمة الجانبية للأقسام (وصل حديثاً/الأكثر مبيعاً/العروض)
+      // روابط القائمة الجانبية للأقسام (وصل حديثاً/الأكثر مبيعاً)
       document.querySelectorAll('.drawer .nav-link').forEach(function(a){
-        if(a.hasAttribute('data-open-search')||a.hasAttribute('data-open-track')||a.hasAttribute('data-open-fav')||a.hasAttribute('data-lang-toggle')) return;
+        if(a.hasAttribute('data-open-search')||a.hasAttribute('data-open-track')||a.hasAttribute('data-open-fav')||a.hasAttribute('data-lang-toggle')||a.hasAttribute('data-open-sale')) return;
         var nm=a.textContent.trim();
-        if(nm==='العروض'){ a.addEventListener('click', function(e){ e.preventDefault(); closePanels(); openListing('العروض', ALL, true); }); } else if(['وصل حديثاً','الأكثر مبيعاً'].indexOf(nm)>-1){ a.addEventListener('click', function(e){ e.preventDefault(); closePanels(); openListing(nm, ALL); }); }
+        if(['وصل حديثاً','الأكثر مبيعاً'].indexOf(nm)>-1){ a.addEventListener('click', function(e){ e.preventDefault(); closePanels(); openListing(nm, ALL); }); }
         else if(INFO[nm]){ a.addEventListener('click', function(e){ e.preventDefault(); closePanels(); openInfo(nm); }); }
+      });
+      // زر/رابط "SALE" في أي مكان بالموقع (الدرج، الفوتر، بانر CTA)
+      document.querySelectorAll('[data-open-sale]').forEach(function(b){
+        b.addEventListener('click', function(e){ e.preventDefault(); closePanels(); openListing('SALE', ALL); });
       });
       // روابط الفوتر
       var FOOTER_MAP = {
         'تسوق الكل':{type:'list', title:'كل المنتجات'},
         'وصل حديثاً':{type:'list', title:'وصل حديثاً'},
         'الأكثر مبيعاً':{type:'list', title:'الأكثر مبيعاً'},
-        'العروض':{type:'offers'},
+        'SALE':{type:'offers'},
         'الأسئلة الشائعة':{type:'faq'},
         'الشحن والتوصيل':{type:'info', key:'سياسة الشحن'},
         'سياسة الاستبدال والاسترجاع':{type:'info', key:'الاستبدال والاسترجاع'},
@@ -1639,7 +1624,7 @@
           var cfg=FOOTER_MAP[nm];
           if(!cfg){ if(INFO[nm]) openInfo(nm); else openListing(nm, ALL); return; }
           if(cfg.type==='info'){ openInfo(cfg.key); }
-          else if(cfg.type==='offers'){ openListing('العروض', ALL, true); }
+          else if(cfg.type==='offers'){ openListing('SALE', ALL); }
           else if(cfg.type==='faq'){ closePanels(); var f=document.querySelector('[data-faq]'); if(f) f.scrollIntoView({behavior:'smooth'}); }
           else { openListing(cfg.title||'المنتجات', ALL); }
         });
@@ -1878,7 +1863,7 @@
 
   <script>
   (function(){
-    var AR2EN = {"خدمة العملاء":"Customer Service","الشحن والتوصيل":"Shipping & Delivery","سياسة الاستبدال والاسترجاع":"Returns & Exchange Policy","حسابي":"My Account","الشروط والأحكام":"Terms & Conditions","سياسة الخصوصية":"Privacy Policy","تسجيل الدخول":"Sign In","إنشاء حساب":"Create Account","تسجيل الخروج":"Sign Out","طلباتي":"My Orders","روابط سريعة":"Quick Links","الرئيسية": "Home", "البحث": "Search", "الفئات": "Categories", "المفضلة": "Favorites", "السلة": "Cart", "التنقّل": "Navigation", "وصل حديثاً": "New Arrivals", "الأكثر مبيعاً": "Best Sellers", "العروض": "Offers", "تسوّقي حسب الفئة": "Shop by Category", "تصفّحي المجموعات": "Browse Collections", "المتجر": "Store", "من نحن": "About Us", "سياسة الشحن": "Shipping Policy", "الاستبدال والاسترجاع": "Returns & Exchange", "تواصل معنا": "Contact Us", "تتبّع الطلب": "Track Order", "تتبّع": "Track", "تواصلي معنا واتساب": "Contact us on WhatsApp", "اكتشفي المجموعة": "Discover the Collection", "قمصان": "Shirts", "جاكيتات": "Jackets", "أطقم نسائية": "Women's Sets", "بناطيل": "Trousers", "ترنش كوت": "Trench Coats", "تسوق الكل": "Shop All", "تسوّقي": "Shop", "عرض الكل": "View All", "تسوقي الآن": "Shop Now", "مجموعة جديدة": "New Collection", "سلة التسوّق": "Shopping Cart", "المجموع الفرعي": "Subtotal", "الشحن": "Shipping", "الإجمالي": "Total", "إتمام الطلب": "Checkout", "مجّاني": "Free", "الأسعار شاملة الضريبة · شحن مجّاني": "Prices include VAT · Free shipping worldwide", "أضيفي إلى السلة": "Add to Cart", "المقاس": "Size", "التفاصيل": "Details", "رجوع": "Back", "خامة فاخرة ومتينة": "Premium, durable fabric", "قصّة مريحة ومناسبة للجسم": "Comfortable, flattering fit", "استبدال خلال 14 يوماً": "14-day exchange", "قطعة مصمّمة بعناية من خامات عالية الجودة تمنحك إطلالة أنيقة ومريحة في آنٍ واحد. القصّة مدروسة لتناسب مختلف المناسبات، بتشطيب راقٍ يدوم طويلاً.": "A carefully designed piece made from high-quality materials for an elegant yet comfortable look. The cut suits various occasions, with a refined finish that lasts.", "شحن مجاني": "Free Shipping", "شحن مجاني لكل أنحاء الكويت": "Free shipping across Kuwait", "لكل أنحاء الكويت": "Across Kuwait", "توصيل سريع": "Fast Delivery", "إرجاع واستبدال": "Returns & Exchange", "استبدال وإرجاع خلال ١٤ يوم": "Returns & exchange within 14 days", "خلال ١٤ يوم": "Within 14 days", "دفع آمن": "Secure Payment", "حماية كاملة للبيانات": "Full data protection", "لماذا Dershow؟": "Why Dershow?", "الأسئلة الشائعة": "FAQ", "كم يستغرق وصول طلبي؟": "How long does delivery take?", "الطلبات المحلية تصل خلال 5 إلى 7 أيام عمل، والشحنات الخارجية من 7 إلى 16 يوماً. ستصلك تفاصيل التسليم في بريد تأكيد الطلب.": "Local orders arrive within 5 to 7 business days, and international shipments within 7 to 16 days. Delivery details will be included in your order confirmation email.", "ما سياسة الاستبدال والاسترجاع؟": "What is the returns & exchange policy?", "يمكنك الاستبدال أو الاسترجاع خلال 14 يوماً من الاستلام، بشرط أن تكون القطعة بحالتها الأصلية.": "You may exchange or return within 14 days of receipt, provided the item is in its original condition.", "هل تشحنون خارج البلاد؟": "Do you ship internationally?", "نعم، نشحن إلى جميع أنحاء العالم. تُضاف تكاليف الشحن عند إتمام الطلب، ونوفّر عروضاً وخصومات على مدار العام.": "Yes, we ship worldwide. Shipping costs are added at checkout, and we offer deals and discounts year-round.", "لديك سؤال آخر؟": "Have another question?", "تواصلي معنا عبر صفحة \"تواصل معنا\" وسنكون سعداء بمساعدتك من الإثنين إلى الجمعة، 8 صباحاً حتى 8:30 مساءً.": "Reach us via the \"Contact Us\" page and we'll be happy to help from Monday to Friday, 8 AM to 8:30 PM.", "قطع أساسية عصرية بجودة عالية وأسعار مناسبة، مصمّمة لتكون جزءاً من إطلالتك اليومية.": "Modern essentials with high quality and fair prices, designed to be part of your everyday look.", "اشتراك": "Subscribe", "© 2026 Dershow · جميع الحقوق محفوظة": "© 2026 Dershow · All rights reserved", "أدخلي رقم الطلب لمتابعة حالته.": "Enter your order number to track its status.", "د.ك": "KWD", "بنطلون جبردين قطن": "Cotton Gabardine Trousers", "بنطلون جبردين قطن بكفّة": "Cuffed Cotton Gabardine Trousers", "طقم برشوت (جاكيت طويل + بنطلون)": "Parachute Set (Long Jacket + Trousers)", "طقم برشوت (جاكيت طويل)": "Parachute Set (Long Jacket)", "طقم برشوت عنابي (جاكيت + بنطلون)": "Maroon Parachute Set (Jacket + Trousers)", "طقم برشوت قطن أوفرسايز": "Oversized Cotton Parachute Set", "طقم بوبلين برشوت (جاكيت بحزام + بنطلون)": "Poplin Parachute Set (Belted Jacket + Trousers)", "طقم نسائي أوفرسايز (جاكيت + بنطلون)": "Oversized Women's Set (Jacket + Trousers)", "أُضيفت إلى المفضلة": "Added to favorites", "أُزيلت من المفضلة": "Removed from favorites", "تمت الإضافة إلى السلة": "Added to cart", "سلّتك فارغة": "Your cart is empty", "أضيفي بعض القطع لتظهر هنا.": "Add some pieces to see them here.", "تصفّح المنتجات": "Browse products", "لا توجد مفضلات بعد": "No favorites yet", "اضغطي على القلب لحفظ ما يعجبك.": "Tap the heart to save what you like.", "ابدئي بكتابة اسم المنتج": "Start typing a product name", "لا توجد نتائج مطابقة": "No matching results"};
+    var AR2EN = {"خدمة العملاء":"Customer Service","الشحن والتوصيل":"Shipping & Delivery","سياسة الاستبدال والاسترجاع":"Returns & Exchange Policy","حسابي":"My Account","الشروط والأحكام":"Terms & Conditions","سياسة الخصوصية":"Privacy Policy","تسجيل الدخول":"Sign In","إنشاء حساب":"Create Account","تسجيل الخروج":"Sign Out","طلباتي":"My Orders","روابط سريعة":"Quick Links","الرئيسية": "Home", "البحث": "Search", "الفئات": "Categories", "المفضلة": "Favorites", "السلة": "Cart", "التنقّل": "Navigation", "وصل حديثاً": "New Arrivals", "الأكثر مبيعاً": "Best Sellers", "العروض": "Offers", "تسوّقي حسب الفئة": "Shop by Category", "تصفّحي المجموعات": "Browse Collections", "المتجر": "Store", "من نحن": "About Us", "سياسة الشحن": "Shipping Policy", "الاستبدال والاسترجاع": "Returns & Exchange", "تواصل معنا": "Contact Us", "تتبّع الطلب": "Track Order", "تتبّع": "Track", "تواصلي معنا واتساب": "Contact us on WhatsApp", "اكتشفي المجموعة": "Discover the Collection", "قمصان": "Shirts", "جاكيتات": "Jackets", "أطقم نسائية": "Women's Sets", "بناطيل": "Trousers", "ترنش كوت": "Trench Coats", "تسوق الكل": "Shop All", "تسوّقي": "Shop", "عرض الكل": "View All", "تسوقي الآن": "Shop Now", "مجموعة جديدة": "New Collection", "سلة التسوّق": "Shopping Cart", "المجموع الفرعي": "Subtotal", "الشحن": "Shipping", "الإجمالي": "Total", "إتمام الطلب": "Checkout", "مجّاني": "Free", "الأسعار شاملة الضريبة · شحن مجّاني": "Prices include VAT · Free shipping worldwide", "أضيفي إلى السلة": "Add to Cart", "المقاس": "Size", "التفاصيل": "Details", "رجوع": "Back", "خامة فاخرة ومتينة": "Premium, durable fabric", "قصّة مريحة ومناسبة للجسم": "Comfortable, flattering fit", "استبدال خلال 14 يوماً": "14-day exchange", "قطعة مصمّمة بعناية من خامات عالية الجودة تمنحك إطلالة أنيقة ومريحة في آنٍ واحد. القصّة مدروسة لتناسب مختلف المناسبات، بتشطيب راقٍ يدوم طويلاً.": "A carefully designed piece made from high-quality materials for an elegant yet comfortable look. The cut suits various occasions, with a refined finish that lasts.", "شحن مجاني": "Free Shipping", "شحن مجاني لكل أنحاء الكويت": "Free shipping across Kuwait", "لكل أنحاء الكويت": "Across Kuwait", "توصيل سريع": "Fast Delivery", "إرجاع واستبدال": "Returns & Exchange", "استبدال وإرجاع خلال ١٤ يوم": "Returns & exchange within 14 days", "خلال ١٤ يوم": "Within 14 days", "دفع آمن": "Secure Payment", "حماية كاملة للبيانات": "Full data protection", "دعم العملاء": "Customer Support", "متواجدون طوال الأسبوع": "Here for you all week", "لماذا Dershow؟": "Why Dershow?", "الأسئلة الشائعة": "FAQ", "كم يستغرق وصول طلبي؟": "How long does delivery take?", "الطلبات المحلية تصل خلال 5 إلى 7 أيام عمل، والشحنات الخارجية من 7 إلى 16 يوماً. ستصلك تفاصيل التسليم في بريد تأكيد الطلب.": "Local orders arrive within 5 to 7 business days, and international shipments within 7 to 16 days. Delivery details will be included in your order confirmation email.", "ما سياسة الاستبدال والاسترجاع؟": "What is the returns & exchange policy?", "يمكنك الاستبدال أو الاسترجاع خلال 14 يوماً من الاستلام، بشرط أن تكون القطعة بحالتها الأصلية.": "You may exchange or return within 14 days of receipt, provided the item is in its original condition.", "هل تشحنون خارج البلاد؟": "Do you ship internationally?", "نعم، نشحن إلى جميع أنحاء العالم. تُضاف تكاليف الشحن عند إتمام الطلب، ونوفّر عروضاً وخصومات على مدار العام.": "Yes, we ship worldwide. Shipping costs are added at checkout, and we offer deals and discounts year-round.", "لديك سؤال آخر؟": "Have another question?", "تواصلي معنا عبر صفحة \"تواصل معنا\" وسنكون سعداء بمساعدتك من الإثنين إلى الجمعة، 8 صباحاً حتى 8:30 مساءً.": "Reach us via the \"Contact Us\" page and we'll be happy to help from Monday to Friday, 8 AM to 8:30 PM.", "قطع أساسية عصرية بجودة عالية وأسعار مناسبة، مصمّمة لتكون جزءاً من إطلالتك اليومية.": "Modern essentials with high quality and fair prices, designed to be part of your everyday look.", "اشتراك": "Subscribe", "© 2026 Dershow · جميع الحقوق محفوظة": "© 2026 Dershow · All rights reserved", "أدخلي رقم الطلب لمتابعة حالته.": "Enter your order number to track its status.", "د.ك": "KWD", "بنطلون جبردين قطن": "Cotton Gabardine Trousers", "بنطلون جبردين قطن بكفّة": "Cuffed Cotton Gabardine Trousers", "طقم برشوت (جاكيت طويل + بنطلون)": "Parachute Set (Long Jacket + Trousers)", "طقم برشوت (جاكيت طويل)": "Parachute Set (Long Jacket)", "طقم برشوت عنابي (جاكيت + بنطلون)": "Maroon Parachute Set (Jacket + Trousers)", "طقم برشوت قطن أوفرسايز": "Oversized Cotton Parachute Set", "طقم بوبلين برشوت (جاكيت بحزام + بنطلون)": "Poplin Parachute Set (Belted Jacket + Trousers)", "طقم نسائي أوفرسايز (جاكيت + بنطلون)": "Oversized Women's Set (Jacket + Trousers)", "أُضيفت إلى المفضلة": "Added to favorites", "أُزيلت من المفضلة": "Removed from favorites", "تمت الإضافة إلى السلة": "Added to cart", "سلّتك فارغة": "Your cart is empty", "أضيفي بعض القطع لتظهر هنا.": "Add some pieces to see them here.", "تصفّح المنتجات": "Browse products", "لا توجد مفضلات بعد": "No favorites yet", "اضغطي على القلب لحفظ ما يعجبك.": "Tap the heart to save what you like.", "ابدئي بكتابة اسم المنتج": "Start typing a product name", "لا توجد نتائج مطابقة": "No matching results"};
     var PH_AR2EN = {"ابحثي عن منتج...": "Search for a product...", "بريدك الإلكتروني": "Your email", "رقم الطلب (مثال: DS10234)": "Order number (e.g. DS10234)"};
     var EN2AR = {}; for(var k in AR2EN){ EN2AR[AR2EN[k]] = k; }
     var PH_EN2AR = {}; for(var k in PH_AR2EN){ PH_EN2AR[PH_AR2EN[k]] = k; }
@@ -1964,7 +1949,7 @@
     }
     // نطبّق reveal على البطاقات والأقسام والفئات
     function markReveal(){
-      document.querySelectorAll('.grid .card, .hscroll .card, .cats .cat, .mosaic .tile, .section__head, .faq2__item, .trust__item').forEach(function(e){
+      document.querySelectorAll('.grid .card, .hscroll .card, .cats .cat, .section__head, .faq2__item, .trust__item').forEach(function(e){
         if(!e.classList.contains('reveal')) e.classList.add('reveal');
       });
     }
