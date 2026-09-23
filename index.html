@@ -27,12 +27,9 @@
   .cart-count{position:absolute;top:4px;left:4px;min-width:16px;height:16px;padding:0 4px;background:var(--sale);color:#fff;font-size:10px;font-weight:700;border-radius:9px;display:grid;place-items:center}
   .icon{width:22px;height:22px;stroke:var(--ink);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
 
-  .strip{background:#b23a4a;color:#fff;font-size:11px;font-weight:600;padding:5px 0;letter-spacing:.2px;overflow:hidden}
-  .strip__track{display:flex;flex-wrap:nowrap;width:max-content;direction:rtl;will-change:transform;animation:strip-marquee 26s linear infinite}
-  .strip__seg{flex:0 0 auto;white-space:nowrap;display:flex;align-items:center}
-  .strip__seg::after{content:"";padding:0 26px}
-  @keyframes strip-marquee{from{transform:translateX(0)}to{transform:translateX(50%)}}
-  @media (hover:hover){.strip:hover .strip__track{animation-play-state:paused}}
+  .strip{background:#b23a4a;color:#fff;font-size:12px;font-weight:700;letter-spacing:.2px;position:relative;height:34px;overflow:hidden}
+  .strip__msg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:0 14px;text-align:center;opacity:0;transition:opacity .6s ease}
+  .strip__msg.is-active{opacity:1}
 
   .hero{position:relative;margin:12px var(--gutter) 0;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
   .hero img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 20%;display:block}
@@ -503,7 +500,10 @@
     <div class="splash__bar"><span></span></div>
   </div>
 
-  <div class="strip"><div class="strip__track"><span class="strip__seg">SALE · 50% OFF STOREWIDE</span><span class="strip__seg">شحن مجاني لكل أنحاء الكويت</span><span class="strip__seg">استبدال وإرجاع خلال ١٤ يوم</span><span class="strip__seg">SALE · 50% OFF STOREWIDE</span><span class="strip__seg">شحن مجاني لكل أنحاء الكويت</span><span class="strip__seg">استبدال وإرجاع خلال ١٤ يوم</span><span class="strip__seg">SALE · 50% OFF STOREWIDE</span><span class="strip__seg">شحن مجاني لكل أنحاء الكويت</span><span class="strip__seg">استبدال وإرجاع خلال ١٤ يوم</span><span class="strip__seg">SALE · 50% OFF STOREWIDE</span><span class="strip__seg">شحن مجاني لكل أنحاء الكويت</span><span class="strip__seg">استبدال وإرجاع خلال ١٤ يوم</span></div></div>
+  <div class="strip" data-strip>
+    <div class="strip__msg is-active">خصومات تصل إلى 50%</div>
+    <div class="strip__msg">توصيل مجاني لكل أنحاء الكويت</div>
+  </div>
 
   <header class="topbar">
     <button class="icon-btn" data-open-menu aria-label="القائمة"><svg class="icon" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
@@ -1959,6 +1959,20 @@
     else document.addEventListener('DOMContentLoaded', initExtras);
     // نعيد التطبيق لو اتضافت بطاقات (صفحة القوائم)
     window.__refreshExtras=function(){ setTimeout(initExtras, 30); };
+
+    // ===== شريط الرسائل: ثابت (بدون حركة انزلاق)، يتلاشى وينتقل بين رسالتين =====
+    (function(){
+      var strip=document.querySelector('[data-strip]');
+      if(!strip) return;
+      var msgs=strip.querySelectorAll('.strip__msg');
+      if(msgs.length<2) return;
+      var i=0;
+      setInterval(function(){
+        msgs[i].classList.remove('is-active');
+        i=(i+1)%msgs.length;
+        msgs[i].classList.add('is-active');
+      }, 3200);
+    })();
   })();
   </script>
 </body>
